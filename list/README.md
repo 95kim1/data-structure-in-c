@@ -1,8 +1,7 @@
 # Double Linked List
----
 
 ## 1. Description
----
+
 ![list-description](/images/list-description.png "list-description")
 
 <pre>
@@ -24,7 +23,7 @@ sh_list {
 </pre>
 
 ## 2. Functions
----
+
 ### 2-1. Capacity
 ---
 #### empty
