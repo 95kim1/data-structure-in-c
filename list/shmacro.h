@@ -18,9 +18,12 @@
 #define sh_get_front(self, type)            ( (type*) (self)->front(self) )
 #define sh_get_back(self, type)             ( (type*) (self)->back(self) )
 
+#define sh_insert(self, node, pdata)        ( (self)->insert(self, node, pdata) )
 #define sh_push_back(self, pdata)           ( (self)->push_back(self, pdata) )
 #define sh_push_front(self, pdata)          ( (self)->push_front(self, pdata) )
 
+#define sh_erase(self, node)                ( (self)->erase(self, node) )
+#define sh_erase_range(self, beg, end)      ( (self)->erase_range(self, beg, end) )
 #define sh_pop_back(self)                   ( (self)->pop_back(self) ) 
 #define sh_pop_front(self)                  ( (self)->pop_front(self) )
 
