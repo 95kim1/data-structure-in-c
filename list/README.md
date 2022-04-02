@@ -24,6 +24,16 @@ sh_list {
 
 ## 2. Functions
 
+### 2-0. Init
+you must call "init_sh_list" function to use sh_list.  
+(call it before using member functions)
+
+- void init_sh_list(sh_list* shlist);
+    + make two dummy nodes (head and tail)
+    + connect head to tail
+    + assign functions to member function(function pointer)
+
+
 ### 2-1. Capacity
 ---
 #### empty
