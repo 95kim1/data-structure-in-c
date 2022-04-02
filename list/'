@@ -1,0 +1,34 @@
+# Double Linked List
+
+## 1. Description
+
+![list-description](/images/list-description.png "list-description")
+
+sh_list_node {
+<br>void* prev;
+    void* next;
+    void* data;
+}
+
+sh_list {
+	unsigned int len;
+	sh_list_node* head;
+	sh_list_node* tail;
+}
+
+## 2. Functions
+
+### Capacity
+
+#### empty
+- bool empty(struct sh_list\* self);
+	+ if list is empty, then return true
+	+ else return false
+
+#### size
+- unsigned int size(struct sh_list\* self);
+	+ return the number of nodes of list
+
+#### 
+
+

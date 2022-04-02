@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-typedef struct sh_liset_node{
+typedef struct sh_list_node{
     void* prev;
     void* next;
     void* data;
