@@ -4,6 +4,12 @@
 
 ![list-description](/images/list-description.png "list-description")
 
+> **dummy node**
+>   rend: head
+>   end : tail
+
+---
+
 <pre>
 sh_list_node {
     void* prev;
@@ -21,6 +27,11 @@ sh_list {
     ... (member functions)
 }
 </pre>
+
+---
+
+Data stored in this list shoud be dynamically allocated.
+(Note that data in sh_list_node is a void* type.)
 
 ## 2. Functions
 

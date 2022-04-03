@@ -1,3 +1,13 @@
+/************************************************
+* file name    : test.c
+* create date  : 2022.04.01
+* update date  : 2022.04.02
+* writer       : 95kim1 (sunghee.k)
+* last updater : 95kim1 (sunghee.k)
+* description  : test source file of Double Linked List
+*
+*************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

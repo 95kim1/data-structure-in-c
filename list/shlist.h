@@ -1,3 +1,17 @@
+/************************************************
+* file name    : shlist.h
+* create date  : 2022.04.01
+* update date  : 2022.04.02
+* writer       : 95kim1 (sunghee.k)
+* last updater : 95kim1 (sunghee.k)
+* description  : Double Linked List's header file
+*
+*   node structure
+*   list structure
+*   list functions
+*
+*************************************************/
+
 #ifndef _SH_LIST_H_
 #define _SH_LIST_H_
 
@@ -47,9 +61,11 @@ void init_sh_list(sh_list* shlist);
 
 
 ////////////////////////////////////
+// Capacity
 bool _sh_list_empty(sh_list* self);
 unsigned int _sh_list_size(sh_list* self);
 
+// Access
 sh_list_node* _sh_list_begin(sh_list* self);
 sh_list_node* _sh_list_end(sh_list* self);
 sh_list_node* _sh_list_rbegin(sh_list* self);
@@ -59,6 +75,7 @@ sh_list_node* _sh_list_middle(sh_list* self, int index);
 void* _sh_list_back(sh_list* self);
 void* _sh_list_front(sh_list* self);
 
+// Modifier
 bool _sh_list_insert(sh_list* self, sh_list_node* node, void* pdata);
 bool _sh_list_push_front(sh_list* self, void* pdata);
 bool _sh_list_push_back(sh_list* self, void* pdata);
@@ -72,4 +89,12 @@ void _sh_list_clear(sh_list* self);
 
 void _sh_list_free(sh_list* self);
 
+// Operation
+/*
+void _sh_list_swap(sh_list_node* nodea, sh_list_node* nodeb);
+void _sh_list_reverse(sh_list* self);
+void _sh_list_sort(sh_list* self);
+void _sh_list_merge(sh_list* dst, sh_list* src);
+void _sh_list_remove_if(sh_list* dst, bool (*compare)(void* left, void* right));
+*/
 #endif

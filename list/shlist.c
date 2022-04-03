@@ -1,3 +1,15 @@
+/************************************************
+* file name    : shlist.c
+* create date  : 2022.04.01
+* update date  : 2022.04.02
+* writer       : 95kim1 (sunghee.k)
+* last updater : 95kim1 (sunghee.k)
+* description  : Double Linked List's source file
+*
+*   definitions of list functions
+*
+*************************************************/
+
 #include "shlist.h"
 
 void init_sh_list(sh_list* shlist) {
