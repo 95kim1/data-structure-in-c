@@ -40,4 +40,6 @@
 #define sh_clear(self)                      ( (self)->clear(self) )
 #define sh_free(self)                       ( (self)->free(self) )
 
+#define sh_swap(self, node_a, node_b)       ( (self)->swap(self, node_a, node_b) )
+
 #endif

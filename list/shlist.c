@@ -12,6 +12,9 @@
 
 #include "shlist.h"
 
+  /////////////////////////
+ //     Initiallize     //
+/////////////////////////
 void init_sh_list(sh_list* shlist) {
     shlist->len = 0;
 
@@ -22,9 +25,11 @@ void init_sh_list(sh_list* shlist) {
     shlist->tail->prev = shlist->head;
 
 ///////////////////////
+    // Capacity //
     shlist->empty       = _sh_list_empty;
     shlist->size        = _sh_list_size;
     
+    // Access //
     shlist->begin       = _sh_list_begin;
     shlist->end         = _sh_list_end;
     shlist->rbegin      = _sh_list_rbegin;
@@ -34,6 +39,7 @@ void init_sh_list(sh_list* shlist) {
     shlist->front       = _sh_list_front;
     shlist->middle      = _sh_list_middle;
     
+    // Modifier //
     shlist->insert      = _sh_list_insert;
     shlist->push_front  = _sh_list_push_front;
     shlist->push_back   = _sh_list_push_back;
@@ -46,9 +52,20 @@ void init_sh_list(sh_list* shlist) {
     shlist->clear       = _sh_list_clear;
 
     shlist->free        = _sh_list_free;
+
+    // Operation //
+    shlist->swap        = _sh_list_swap;
+    /*
+    shlist->reverse     = _sh_list_reverse;
+    shlist->sort        = _sh_list_sort;
+    shlist->merge       = _sh_list_merge;
+    shlist->remove_if   = _sh_list_remove_if;
+    */
 }
 
-////////////
+  /////////////////////////
+ //      Capacity       //
+/////////////////////////
 bool _sh_list_empty(sh_list* self) {
     return (self->len == 0) ? true : false;
 }
@@ -56,6 +73,9 @@ unsigned int _sh_list_size(sh_list* self) {
     return self->len;
 }
 
+  //////////////////////
+ //      Access      //
+//////////////////////
 sh_list_node* _sh_list_begin(sh_list* self) {
     return self->head->next;
 }
@@ -88,7 +108,9 @@ void* _sh_list_front(sh_list* self) {
     return (self->begin(self))->data;
 }
 
-
+  //////////////////////////
+ //      Modifier        //
+////////////////////////// 
 bool _sh_list_insert(sh_list* self, sh_list_node* node, void* pdata) {
     sh_list_node* prev = node->prev;
     sh_list_node* next = node;
@@ -173,4 +195,53 @@ void _sh_list_free(sh_list* self) {
     self->clear(self);
     free(self->head);
     free(self->tail);
+}
+
+  /////////////////////////
+ //     Operation       //
+/////////////////////////
+void _sh_list_swap(sh_list* self, sh_list_node* node_a, sh_list_node* node_b) {
+    if (node_a == node_b) return;
+
+    if (node_a == self->head || node_a == self->tail || 
+        node_b == self->head || node_b == self->tail) return;
+
+    sh_list_node* prev_a = node_a->prev;
+    sh_list_node* next_b = node_b->next;
+    sh_list_node* next_a = node_a->next;
+    sh_list_node* prev_b = node_b->prev;
+
+    if (prev_b == node_a) {
+        prev_a->next = node_b;
+        node_b->prev = prev_a;
+
+        node_b->next = node_a;
+        node_a->prev = node_b;
+
+        next_b->prev = node_a;
+        node_a->next = next_b;
+    } else if (next_b == node_a) {
+        prev_b->next = node_a;
+        node_a->prev = prev_b;
+
+        node_a->next = node_b;
+        node_b->prev = node_a;
+
+        node_b->next = next_a;
+        next_a->prev = node_b;
+    } else {
+        prev_a->next = node_b;
+        next_a->prev = node_b;
+
+        node_b->prev = prev_a;
+        node_b->next = next_a;
+
+        prev_b->next = node_a;
+        next_b->prev = node_a;
+
+        node_a->prev = prev_b;
+        node_a->next = next_b;        
+    }
+
+    return;
 }

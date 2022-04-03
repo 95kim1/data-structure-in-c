@@ -126,6 +126,10 @@ you must call "init_sh_list" function to use sh_list.
     + clear
     + free head and tail of the list
 
+### 2-4. Operations
+---
+- void swap(sh_list_node* node_a, sh_list_node* node_b);
+    + swap 2 nodes
 
 ## 3. Macros
 
@@ -158,4 +162,6 @@ you must call "init_sh_list" function to use sh_list.
 
 #define sh_clear(self)                      ( (self)->clear(self) )
 #define sh_free(self)                       ( (self)->free(self) )
+
+#define sh_swap(self, node_a, node_b)       ( (self)->swap(node_a, node_b) )
 ```

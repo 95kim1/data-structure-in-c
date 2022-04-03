@@ -30,9 +30,11 @@ typedef struct sh_list{
     sh_list_node* head;
     sh_list_node* tail;
 ///////////////////////
+    // Capacity //
     bool (*empty)(struct sh_list* self);
     unsigned int (*size)(struct sh_list* self);
     
+    // Access //
     sh_list_node* (*begin)(struct sh_list* self);
     sh_list_node* (*end)(struct sh_list* self);
     sh_list_node* (*rbegin)(struct sh_list* self);
@@ -42,6 +44,7 @@ typedef struct sh_list{
     void* (*back)(struct sh_list* self);
     void* (*front)(struct sh_list* self);
 
+    // Modifier //
     bool (*insert)(struct sh_list* self, sh_list_node* node, void* pdata);
     bool (*push_front)(struct sh_list* self, void* pdata);
     bool (*push_back)(struct sh_list* self, void* pdata);
@@ -54,6 +57,15 @@ typedef struct sh_list{
     void (*clear)(struct sh_list* self);
 
     void (*free)(struct sh_list* self);
+
+    // Operation //
+    void (*swap)(struct sh_list* self, sh_list_node* node_a, sh_list_node* node_b);
+    /*
+    void (*reverse)(struct sh_list* self);
+    void (*sort)(struct sh_list* self);
+    void (*merge)(struct sh_list* dst, sh_list* src);
+    void (*remove_if)(struct sh_list* dst, bool (*compare)(void* left, void* right));
+    */
 } sh_list;
 
 void init_sh_list(sh_list* shlist);
@@ -90,8 +102,8 @@ void _sh_list_clear(sh_list* self);
 void _sh_list_free(sh_list* self);
 
 // Operation
+void _sh_list_swap(sh_list* self, sh_list_node* node_a, sh_list_node* node_b);
 /*
-void _sh_list_swap(sh_list_node* nodea, sh_list_node* nodeb);
 void _sh_list_reverse(sh_list* self);
 void _sh_list_sort(sh_list* self);
 void _sh_list_merge(sh_list* dst, sh_list* src);
