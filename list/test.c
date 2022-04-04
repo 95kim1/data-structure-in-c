@@ -231,5 +231,17 @@ int main(void) {
     print(&list1);
     print_inverse(&list1);
 
+
+    // 13. reverse
+    printf("####### 13. REVERSE #######\n");
+    print(&list1);
+    print_inverse(&list1);
+
+    list1.reverse(&list1);
+    // or sh_reverse(&list1);
+
+    print(&list1);
+    print_inverse(&list1);
+
     return 0;
 }

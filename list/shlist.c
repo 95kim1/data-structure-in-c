@@ -55,8 +55,8 @@ void init_sh_list(sh_list* shlist) {
 
     // Operation //
     shlist->swap        = _sh_list_swap;
-    /*
     shlist->reverse     = _sh_list_reverse;
+    /*
     shlist->sort        = _sh_list_sort;
     shlist->merge       = _sh_list_merge;
     shlist->remove_if   = _sh_list_remove_if;
@@ -241,6 +241,22 @@ void _sh_list_swap(sh_list* self, sh_list_node* node_a, sh_list_node* node_b) {
 
         node_a->prev = prev_b;
         node_a->next = next_b;        
+    }
+
+    return;
+}
+
+void _sh_list_reverse(sh_list* self) {
+    sh_list_node* left = self->head->next;
+    sh_list_node* right = self->tail->prev;
+    int cnt = self->size(self) / 2;
+
+    if (self->empty(self)) return;
+
+    while (cnt--) {
+        left = left->next;
+        right = right->prev;
+        self->swap(self, left->prev, right->next);
     }
 
     return;

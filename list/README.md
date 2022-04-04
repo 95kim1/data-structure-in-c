@@ -130,6 +130,14 @@ you must call "init_sh_list" function to use sh_list.
 ---
 - void swap(sh_list_node* node_a, sh_list_node* node_b);
     + swap 2 nodes
+    + O(1)
+
+- void reverse(sh_list\* self);
+    + reverse order of nodes
+    + "reverse" call swap functions
+    + O(n)
+
+
 
 ## 3. Macros
 
@@ -163,5 +171,6 @@ you must call "init_sh_list" function to use sh_list.
 #define sh_clear(self)                      ( (self)->clear(self) )
 #define sh_free(self)                       ( (self)->free(self) )
 
-#define sh_swap(self, node_a, node_b)       ( (self)->swap(node_a, node_b) )
+#define sh_swap(self, node_a, node_b)       ( (self)->swap(self, node_a, node_b) )
+#define sh_reverse(self)                    ( (self)->reverse(self) )
 ```

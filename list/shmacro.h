@@ -41,5 +41,6 @@
 #define sh_free(self)                       ( (self)->free(self) )
 
 #define sh_swap(self, node_a, node_b)       ( (self)->swap(self, node_a, node_b) )
+#define sh_reverse(self)                    ( (self)->reverse(self) )
 
 #endif
