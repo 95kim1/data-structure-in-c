@@ -137,6 +137,11 @@ you must call "init_sh_list" function to use sh_list.
     + "reverse" call swap functions
     + O(n)
 
+- void sort(sh_list\* self, bool (\*compare)(void\*, void\*));
+    + quick sort & insertion sort (partition length <= 30: insertion sort)
+    + In compare function, you must do type castings (2 arguments).
+    + O(nlogn)
+
 
 
 ## 3. Macros

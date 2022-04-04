@@ -56,8 +56,8 @@ void init_sh_list(sh_list* shlist) {
     // Operation //
     shlist->swap        = _sh_list_swap;
     shlist->reverse     = _sh_list_reverse;
-    /*
     shlist->sort        = _sh_list_sort;
+    /*
     shlist->merge       = _sh_list_merge;
     shlist->remove_if   = _sh_list_remove_if;
     */
@@ -261,3 +261,101 @@ void _sh_list_reverse(sh_list* self) {
 
     return;
 }
+
+static void _sh_insertion_sort(sh_list_node** arr, int left, int right, bool (*compare)(void*, void*)) {
+    sh_list_node* temp;
+    
+    for (int i = left + 1, j; i <= right; i++) {
+        temp = arr[i];
+        for (j = i-1; j >= left; j--) {
+            if (!compare(arr[j]->data, temp->data)) {
+                arr[j+1] = arr[j];
+            } else {
+                break;
+            }
+        }
+        arr[j+1] = temp;
+    }
+
+    return;
+}
+#include "shmacro.h"
+
+static int _sh_partition(sh_list_node** arr, int left, int right, bool (*compare)(void*, void*)) {
+    int pivot = (left + right) / 2;
+    int low = left;
+    int high = right;
+
+    void* pivot_data = arr[pivot]->data;
+    
+    sh_list_node* temp;
+
+    while (low < high) {
+        while (low < right && compare(arr[low]->data, pivot_data)) low++;
+        while (left < high && !compare(arr[high]->data, pivot_data)) high--;
+
+        if (low < high) {
+            temp = arr[low];
+            arr[low] = arr[high];
+            arr[high] = temp;
+        }
+    }
+
+    return low;
+}
+
+static void _sh_quick_sort(sh_list_node** arr, int left, int right, bool (*compare)(void*, void*)) {
+    if (right - left < 30 /*30*/) {
+        _sh_insertion_sort(arr, left, right, compare);
+        return;
+    }
+
+    int pivot = _sh_partition(arr, left, right, compare);
+
+    if (left < pivot)
+        _sh_quick_sort(arr, left, pivot - 1, compare);
+    if (pivot < right)
+        _sh_quick_sort(arr, pivot + 1, right, compare);
+    
+    return;
+}
+
+void _sh_list_sort(sh_list* self, bool (*compare)(void*, void*)) {
+    int len = self->size(self);
+
+    if (len < 2) return;
+
+    sh_list_node** arr = (sh_list_node**)malloc(len * sizeof(sh_list_node*));
+    
+    //if (!arr) return;
+    
+    sh_list_node* curr = self->head->next;
+    sh_list_node* tail;
+
+    for (int i = 0; i < len; i++, curr = curr->next) {
+        arr[i] = curr;
+    }
+
+    //sorting
+    _sh_quick_sort(arr, 0, len - 1, compare);
+
+    self->head->next = self->tail;
+    self->tail->prev = self->head;
+
+    tail = self->tail;
+
+    for (int i = 0; i < len; i++) {
+        curr = arr[i];
+        
+        ((sh_list_node*)tail->prev)->next = curr;
+        curr->prev = tail->prev;
+        
+        curr->next = tail;
+        tail->prev = curr;
+    }
+
+    free(arr);
+
+    return;
+}
+

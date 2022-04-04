@@ -61,8 +61,8 @@ typedef struct sh_list{
     // Operation //
     void (*swap)(struct sh_list* self, sh_list_node* node_a, sh_list_node* node_b);
     void (*reverse)(struct sh_list* self);
+    void (*sort)(struct sh_list* self, bool (*compare)(void* left, void* right));
     /*
-    void (*sort)(struct sh_list* self);
     void (*merge)(struct sh_list* dst, sh_list* src);
     void (*remove_if)(struct sh_list* dst, bool (*compare)(void* left, void* right));
     */
@@ -104,8 +104,8 @@ void _sh_list_free(sh_list* self);
 // Operation
 void _sh_list_swap(sh_list* self, sh_list_node* node_a, sh_list_node* node_b);
 void _sh_list_reverse(sh_list* self);
+void _sh_list_sort(sh_list* self, bool (*compare)(void* left, void* right));
 /*
-void _sh_list_sort(sh_list* self);
 void _sh_list_merge(sh_list* dst, sh_list* src);
 void _sh_list_remove_if(sh_list* dst, bool (*compare)(void* left, void* right));
 */

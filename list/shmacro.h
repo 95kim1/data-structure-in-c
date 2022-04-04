@@ -42,5 +42,6 @@
 
 #define sh_swap(self, node_a, node_b)       ( (self)->swap(self, node_a, node_b) )
 #define sh_reverse(self)                    ( (self)->reverse(self) )
+#define sh_sort(self, compare)              ( (self)->sort(self, compare) )
 
 #endif

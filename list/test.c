@@ -48,6 +48,24 @@ void print_inverse(sh_list* list) {
     printf("========END========\n\n");
 }
 
+bool compare_lt(void* a, void* b) {
+    Pos* pos_a = (Pos*)a;
+    Pos* pos_b = (Pos*)b;
+
+    if (pos_a->x < pos_b->x) return true;
+    if (pos_a->x == pos_b->x && pos_a->y < pos_b->y) return true;
+    return false;
+}
+
+bool compare_gt(void* a, void* b) {
+    Pos* pos_a = (Pos*)a;
+    Pos* pos_b = (Pos*)b;
+
+    if (pos_a->x > pos_b->x) return true;
+    if (pos_a->x == pos_b->x && pos_a->y > pos_b->y) return true;
+    return false;
+}
+
 int main(void) {
     Pos* temp_data;
     Pos* temp_data2;
@@ -55,32 +73,29 @@ int main(void) {
     init_sh_list(&list1);
 
     // 1. empty
-    printf("####### 1. EMPTY #######\n");
+    printf("\n####### 1. EMPTY #######\n");
     if (sh_is_empty(&list1)) printf("empty\n");
     else printf("non-empty\n");
     // or list1.empty(&list1)
 
     // 2. size
-    printf("####### 2. SIZE #######\n");
+    printf("\n####### 2. SIZE #######\n");
     printf("size: %d\n", sh_get_size(&list1));
     // or list1.size(&list1)
 
     // 3. push_back
-    printf("####### 3. PUSH_BACK #######\n");
+    printf("\n####### 3. PUSH_BACK #######\n");
     for (int x = 0; x < 4; x++) {
-        printf("create\n");
         temp_data = sh_create_data(Pos);
         temp_data->x = x;
         temp_data->y = 0;
-        printf("-----\n");
         list1.push_front(&list1, temp_data);
         // or sh_push_front(&list1, temp_data);
-        printf("push\n\n");
     }
     print(&list1);
 
     // 4. pop_back
-    printf("####### 4. POP_BACK #######\n");
+    printf("\n####### 4. POP_BACK #######\n");
     for (int i = 1; !sh_is_empty(&list1); i++) {
         list1.pop_back(&list1);
         // or sh_pop_back(&list1);
@@ -90,22 +105,19 @@ int main(void) {
     }
 
     // 5. push_front
-    printf("####### 5. PUSH_FRONT #######\n");
+    printf("\n####### 5. PUSH_FRONT #######\n");
     for (int x = 0; x < 4; x++) {
-        printf("create\n");
         temp_data = sh_create_data(Pos);
         temp_data->x = x;
         temp_data->y = 0;
-        printf("-----\n");
         list1.push_front(&list1, temp_data);
         // or sh_push_front(&list1, temp_data);
-        printf("push\n\n");
     }
     print(&list1);
     
     
     // 6. pop_front
-    printf("####### 6. POP_FRONT #######\n");
+    printf("\n####### 6. POP_FRONT #######\n");
     
     for (int i = 1; !sh_is_empty(&list1); i++) {
         list1.pop_front(&list1);
@@ -117,16 +129,13 @@ int main(void) {
     
 
     // 7. insert
-    printf("####### 7. INSERT #######\n");
+    printf("\n####### 7. INSERT #######\n");
     for (int x = 0; x < 4; x++) {
-        printf("create\n");
         temp_data = sh_create_data(Pos);
         temp_data->x = x;
         temp_data->y = 0;
-        printf("-----\n");
         list1.push_front(&list1, temp_data);
         // or sh_push_front(&list1, temp_data);
-        printf("push\n\n");
     }
 
     print(&list1);
@@ -141,30 +150,30 @@ int main(void) {
     list1.insert(&list1, sh_get_end(&list1), temp_data);
 
     print(&list1);
-    print_inverse(&list1);
+    //print_inverse(&list1);
 
     
     // 8. erase
-    printf("####### 8. ERASE #######\n");
+    printf("\n####### 8. ERASE #######\n");
     list1.erase(&list1, sh_get_middle(&list1, 2));
     print(&list1);
     list1.erase(&list1, sh_get_middle(&list1, 0));
     print(&list1);
     list1.erase(&list1, sh_get_middle(&list1, 3));
     print(&list1);
-    print_inverse(&list1);
+    //print_inverse(&list1);
     printf("len: %d\n", sh_get_size(&list1));
 
 
     // 9. erase_range
-    printf("####### 9. ERASE_RANGE #######\n");
+    printf("\n####### 9. ERASE_RANGE #######\n");
     print(&list1);
     list1.erase_range(&list1, sh_get_begin(&list1), sh_get_end(&list1)->prev);
     print(&list1);
 
 
     // 10. clear
-    printf("####### 10. CLEAR #######\n");
+    printf("\n####### 10. CLEAR #######\n");
     for (int x = 0; x < 4; x++) {
         temp_data = sh_create_data(Pos);
         temp_data->x = x;
@@ -180,7 +189,7 @@ int main(void) {
 
 
     // 11. free
-    printf("####### 11. FREE #######\n");
+    printf("\n####### 11. FREE #######\n");
     for (int x = 0; x < 4; x++) {
         temp_data = sh_create_data(Pos);
         temp_data->x = x;
@@ -199,7 +208,7 @@ int main(void) {
     // 12. swap
     init_sh_list(&list1);
 
-    printf("####### 12. SWAP #######\n");
+    printf("\n####### 12. SWAP #######\n");
     for (int x = 0; x < 4; x++) {
         temp_data = sh_create_data(Pos);
         temp_data->x = x;
@@ -218,30 +227,56 @@ int main(void) {
     list1.insert(&list1, sh_get_end(&list1), temp_data);
 
     print(&list1);
-    print_inverse(&list1);
+    // /print_inverse(&list1);
 
     list1.swap(&list1, sh_get_middle(&list1, 2), sh_get_rbegin(&list1));
 
     print(&list1);
-    print_inverse(&list1);
+    //print_inverse(&list1);
 
     sh_swap(&list1, sh_get_middle(&list1, 2), sh_get_middle(&list1, 3));
     // or list1.swap(sh_get_middle(&list1, 2), sh_get_middle(&list1, 3));
     
     print(&list1);
-    print_inverse(&list1);
+    //print_inverse(&list1);
 
 
     // 13. reverse
-    printf("####### 13. REVERSE #######\n");
+    printf("\n####### 13. REVERSE #######\n");
     print(&list1);
-    print_inverse(&list1);
+    //print_inverse(&list1);
 
     list1.reverse(&list1);
     // or sh_reverse(&list1);
 
     print(&list1);
-    print_inverse(&list1);
+    //print_inverse(&list1);
+
+    // 14. sort
+    printf("\n####### 14. SORT #######\n");
+    
+    for (int i = 100; i >= 0; i--) {
+        temp_data = sh_create_data(Pos);
+        temp_data->x = i;
+        temp_data->y = 0;
+        list1.push_back(&list1, temp_data);
+    }
+
+    print(&list1);
+
+    printf("##########################\n");
+    printf("non-decreasing sorting....\n");
+    list1.sort(&list1, compare_lt);
+    printf("##########################\n\n");
+
+    print(&list1);
+
+    printf("##########################\n");
+    printf("non-increasing sorting....\n");
+    list1.sort(&list1, compare_gt);
+    printf("##########################\n\n");
+
+    print(&list1);
 
     return 0;
 }
