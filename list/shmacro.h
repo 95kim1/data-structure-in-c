@@ -1,7 +1,7 @@
 /************************************************
 * file name    : shmacro.h
 * create date  : 2022.04.01
-* update date  : 2022.04.02
+* update date  : 2022.04.04
 * writer       : 95kim1 (sunghee.k)
 * last updater : 95kim1 (sunghee.k)
 * description  : macro functions
@@ -43,5 +43,6 @@
 #define sh_swap(self, node_a, node_b)       ( (self)->swap(self, node_a, node_b) )
 #define sh_reverse(self)                    ( (self)->reverse(self) )
 #define sh_sort(self, compare)              ( (self)->sort(self, compare) )
+#define sh_merge(this, other, comapre)      ( (this)->merge(this, other, compare) )
 
 #endif

@@ -1,7 +1,7 @@
 /************************************************
 * file name    : shlist.c
 * create date  : 2022.04.01
-* update date  : 2022.04.02
+* update date  : 2022.04.04
 * writer       : 95kim1 (sunghee.k)
 * last updater : 95kim1 (sunghee.k)
 * description  : Double Linked List's source file
@@ -57,8 +57,8 @@ void init_sh_list(sh_list* shlist) {
     shlist->swap        = _sh_list_swap;
     shlist->reverse     = _sh_list_reverse;
     shlist->sort        = _sh_list_sort;
-    /*
     shlist->merge       = _sh_list_merge;
+    /*
     shlist->remove_if   = _sh_list_remove_if;
     */
 }
@@ -262,6 +262,7 @@ void _sh_list_reverse(sh_list* self) {
     return;
 }
 
+//////////////////////// static begin - for sort ////////////////////////
 static void _sh_insertion_sort(sh_list_node** arr, int left, int right, bool (*compare)(void*, void*)) {
     sh_list_node* temp;
     
@@ -279,7 +280,6 @@ static void _sh_insertion_sort(sh_list_node** arr, int left, int right, bool (*c
 
     return;
 }
-#include "shmacro.h"
 
 static int _sh_partition(sh_list_node** arr, int left, int right, bool (*compare)(void*, void*)) {
     int pivot = (left + right) / 2;
@@ -319,6 +319,7 @@ static void _sh_quick_sort(sh_list_node** arr, int left, int right, bool (*compa
     
     return;
 }
+//////////////////////// static end - for sort ////////////////////////
 
 void _sh_list_sort(sh_list* self, bool (*compare)(void*, void*)) {
     int len = self->size(self);
@@ -355,6 +356,52 @@ void _sh_list_sort(sh_list* self, bool (*compare)(void*, void*)) {
     }
 
     free(arr);
+
+    return;
+}
+
+void _sh_list_merge(sh_list* this, sh_list* other, bool(*compare)(void*, void*)) {   
+    if (!compare) {
+        sh_list_node* head = other->head;
+        sh_list_node* tail = other->tail;
+
+        sh_list_node* next = this->tail;
+        sh_list_node* prev = next->prev;
+
+        prev->next = head->next;
+        ((sh_list_node*)head->next)->prev = prev;
+
+        next->prev = tail->prev;
+        ((sh_list_node*)tail->prev)->next = next;
+    } else {
+        sh_list_node* curr = other->head;
+        sh_list_node* temp = curr->next;
+        sh_list_node* next = this->head;
+        sh_list_node* prev;
+        
+        next = next->next;
+
+        while (temp != other->tail) {
+            curr = temp;
+            temp = curr->next;
+
+            while (next != this->tail && !compare(curr->data, next->data)) next = next->next;
+
+            prev = next->prev;
+            
+            prev->next = curr;
+            curr->prev = prev;
+
+            next->prev = curr;
+            curr->next = next;
+        }
+
+        
+    }
+
+    ((sh_list_node*)other->head)->next = other->tail;
+    ((sh_list_node*)other->tail)->prev = other->head;
+    other->len = 0;
 
     return;
 }

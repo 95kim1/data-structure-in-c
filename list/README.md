@@ -5,8 +5,8 @@
 ![list-description](/images/list-description.png "list-description")
 
 > **dummy node**
->   rend: head
->   end : tail
+       rend: head
+       end : tail
 
 ---
 
@@ -30,7 +30,7 @@ sh_list {
 
 ---
 
-Data stored in this list shoud be dynamically allocated.
+Data stored in this list shoud be dynamically allocated.  
 (Note that data in sh_list_node is a void* type.)
 
 ## 2. Functions
@@ -142,6 +142,14 @@ you must call "init_sh_list" function to use sh_list.
     + In compare function, you must do type castings (2 arguments).
     + O(nlogn)
 
+- void _sh_list_merge(sh_list\* this, sh_list\* other, bool(\*compare)(void\* left, void\* right));
+    + merge "other" to "this"
+    + succeed, then "other" is empty
+    + compare == NULL : just link "other" to the tail of "this"
+        - O(1)
+    + compare != NULL : merge & sort
+        - O(n) (n: len(this) + len(other))
+
 
 
 ## 3. Macros
@@ -178,4 +186,6 @@ you must call "init_sh_list" function to use sh_list.
 
 #define sh_swap(self, node_a, node_b)       ( (self)->swap(self, node_a, node_b) )
 #define sh_reverse(self)                    ( (self)->reverse(self) )
+#define sh_sort(self, compare)              ( (self)->sort(self, compare) )
+#define sh_merge(this, other, comapre)      ( (this)->merge(this, other, compare) )
 ```

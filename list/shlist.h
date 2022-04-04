@@ -1,7 +1,7 @@
 /************************************************
 * file name    : shlist.h
 * create date  : 2022.04.01
-* update date  : 2022.04.02
+* update date  : 2022.04.04
 * writer       : 95kim1 (sunghee.k)
 * last updater : 95kim1 (sunghee.k)
 * description  : Double Linked List's header file
@@ -62,8 +62,8 @@ typedef struct sh_list{
     void (*swap)(struct sh_list* self, sh_list_node* node_a, sh_list_node* node_b);
     void (*reverse)(struct sh_list* self);
     void (*sort)(struct sh_list* self, bool (*compare)(void* left, void* right));
+    void (*merge)(struct sh_list* this, struct sh_list* other, bool (*compare)(void* left, void* right));
     /*
-    void (*merge)(struct sh_list* dst, sh_list* src);
     void (*remove_if)(struct sh_list* dst, bool (*compare)(void* left, void* right));
     */
 } sh_list;
@@ -105,8 +105,8 @@ void _sh_list_free(sh_list* self);
 void _sh_list_swap(sh_list* self, sh_list_node* node_a, sh_list_node* node_b);
 void _sh_list_reverse(sh_list* self);
 void _sh_list_sort(sh_list* self, bool (*compare)(void* left, void* right));
+void _sh_list_merge(sh_list* this, sh_list* other, bool(*compare)(void* left, void* right));
 /*
-void _sh_list_merge(sh_list* dst, sh_list* src);
 void _sh_list_remove_if(sh_list* dst, bool (*compare)(void* left, void* right));
 */
 #endif

@@ -1,7 +1,7 @@
 /************************************************
 * file name    : test.c
 * create date  : 2022.04.01
-* update date  : 2022.04.02
+* update date  : 2022.04.04
 * writer       : 95kim1 (sunghee.k)
 * last updater : 95kim1 (sunghee.k)
 * description  : test source file of Double Linked List
@@ -19,52 +19,10 @@ typedef struct _Pos {
     int y;
 } Pos;
 
-void print(sh_list* list) {
-    sh_list_node* curr;
-    sh_list_node* end = sh_get_end(list);
-    Pos* p = NULL;
-
-    printf("=======BEGIN=======\n");
-    for (curr = sh_get_begin(list); curr != end; curr = curr->next) {
-       p = sh_get_data_ptr(curr, Pos);
-       printf("[%d, %d]\n", p->x, p->y);
-    }
-    if (!p) printf("EMPTY!!\n");
-    printf("========END========\n\n");
-}
-
-void print_inverse(sh_list* list) {
-    sh_list_node* curr;
-    sh_list_node* rend = sh_get_rend(list);
-    Pos* p = NULL;
-
-    printf("=======BEGIN=======\n");
-    printf("======INVERSE======\n");
-    for (curr = sh_get_rbegin(list); curr != rend; curr = curr->prev) {
-       p = sh_get_data_ptr(curr, Pos);
-       printf("[%d, %d]\n", p->x, p->y);
-    }
-    if (!p) printf("EMPTY!!\n");
-    printf("========END========\n\n");
-}
-
-bool compare_lt(void* a, void* b) {
-    Pos* pos_a = (Pos*)a;
-    Pos* pos_b = (Pos*)b;
-
-    if (pos_a->x < pos_b->x) return true;
-    if (pos_a->x == pos_b->x && pos_a->y < pos_b->y) return true;
-    return false;
-}
-
-bool compare_gt(void* a, void* b) {
-    Pos* pos_a = (Pos*)a;
-    Pos* pos_b = (Pos*)b;
-
-    if (pos_a->x > pos_b->x) return true;
-    if (pos_a->x == pos_b->x && pos_a->y > pos_b->y) return true;
-    return false;
-}
+void print(sh_list* list);
+void print_inverse(sh_list* list);
+bool compare_lt(void* a, void* b);
+bool compare_gt(void* a, void* b);
 
 int main(void) {
     Pos* temp_data;
@@ -278,5 +236,113 @@ int main(void) {
 
     print(&list1);
 
+    // 15. merge - 1
+    printf("\n####### 15-1. MERGE (compare==NULL) #######\n");
+
+    list1.clear(&list1);
+
+    for (int i = 0; i < 10; i++) {
+        temp_data = sh_create_data(Pos);
+        temp_data->x = i;
+        temp_data->y = i;
+        list1.push_back(&list1, temp_data);
+    }
+
+    sh_list list2;
+    init_sh_list(&list2);
+
+    for (int i = 10; i < 20; i++) {
+        temp_data = sh_create_data(Pos);
+        temp_data->x = i;
+        temp_data->y = i;
+        list2.push_back(&list2, temp_data);
+    }
+
+    list1.merge(&list1, &list2, NULL);
+
+    printf("LIST_1_\n");
+    print(&list1);
+    printf("\nLIST_2_\n");
+    print(&list2);
+
+    // 15. merge - 2
+    printf("\n####### 15-2. MERGE (compare!=NULL) #######\n");
+
+    list1.clear(&list1);
+
+    for (int i = 0; i < 10; i++) {
+        temp_data = sh_create_data(Pos);
+        temp_data->x = 2*i+1;
+        temp_data->y = 2*i+1;
+        list1.push_back(&list1, temp_data);
+    }
+
+    for (int i = 0; i < 10; i++) {
+        temp_data = sh_create_data(Pos);
+        temp_data->x = 2*i;
+        temp_data->y = 2*i;
+        list2.push_back(&list2, temp_data);
+    }
+
+    printf("LIST_1_\n");
+    print(&list1);
+    printf("\nLIST_2_\n");
+    print(&list2);
+
+    list1.merge(&list1, &list2, compare_lt);
+
+    printf("LIST_1_\n");
+    print(&list1);
+    printf("\nLIST_2_\n");
+    print(&list2);
+
     return 0;
 }
+
+void print(sh_list* list) {
+    sh_list_node* curr;
+    sh_list_node* end = sh_get_end(list);
+    Pos* p = NULL;
+
+    printf("=======BEGIN=======\n");
+    for (curr = sh_get_begin(list); curr != end; curr = curr->next) {
+       p = sh_get_data_ptr(curr, Pos);
+       printf("[%d, %d]\n", p->x, p->y);
+    }
+    if (!p) printf("EMPTY!!\n");
+    printf("========END========\n\n");
+}
+
+void print_inverse(sh_list* list) {
+    sh_list_node* curr;
+    sh_list_node* rend = sh_get_rend(list);
+    Pos* p = NULL;
+
+    printf("=======BEGIN=======\n");
+    printf("======INVERSE======\n");
+    for (curr = sh_get_rbegin(list); curr != rend; curr = curr->prev) {
+       p = sh_get_data_ptr(curr, Pos);
+       printf("[%d, %d]\n", p->x, p->y);
+    }
+    if (!p) printf("EMPTY!!\n");
+    printf("========END========\n\n");
+}
+
+bool compare_lt(void* a, void* b) {
+    Pos* pos_a = (Pos*)a;
+    Pos* pos_b = (Pos*)b;
+
+    if (pos_a->x < pos_b->x) return true;
+    if (pos_a->x == pos_b->x && pos_a->y < pos_b->y) return true;
+    return false;
+}
+
+bool compare_gt(void* a, void* b) {
+    Pos* pos_a = (Pos*)a;
+    Pos* pos_b = (Pos*)b;
+
+    if (pos_a->x > pos_b->x) return true;
+    if (pos_a->x == pos_b->x && pos_a->y > pos_b->y) return true;
+    return false;
+}
+
