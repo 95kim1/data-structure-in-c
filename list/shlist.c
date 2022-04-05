@@ -15,6 +15,11 @@
   /////////////////////////
  //     Initiallize     //
 /////////////////////////
+
+/* initialize list
+ * - create dummy nodes (head & tail)
+ * - assign functions to function pointer members
+ */
 void init_sh_list(sh_list* shlist) {
     shlist->len = 0;
 
@@ -58,9 +63,7 @@ void init_sh_list(sh_list* shlist) {
     shlist->reverse     = _sh_list_reverse;
     shlist->sort        = _sh_list_sort;
     shlist->merge       = _sh_list_merge;
-    /*
     shlist->remove_if   = _sh_list_remove_if;
-    */
 }
 
   /////////////////////////
@@ -88,6 +91,7 @@ sh_list_node* _sh_list_rbegin(sh_list* self) {
 sh_list_node* _sh_list_rend(sh_list* self) {
     return self->head;
 }
+/* returns index-th nodes of a list */
 sh_list_node* _sh_list_middle(sh_list* self, int index) {
     if (index < 0 || index >= self->size(self)) return self->end(self);
 
@@ -111,6 +115,7 @@ void* _sh_list_front(sh_list* self) {
   //////////////////////////
  //      Modifier        //
 ////////////////////////// 
+/* insert pdata in front of the node(2nd argument) of a list */
 bool _sh_list_insert(sh_list* self, sh_list_node* node, void* pdata) {
     sh_list_node* prev = node->prev;
     sh_list_node* next = node;
@@ -140,6 +145,7 @@ bool _sh_list_push_back(sh_list* self, void* pdata) {
     return _sh_list_insert(self, self->tail, pdata);
 }
 
+/* erase node(2nd argument) of a list */
 bool _sh_list_erase(sh_list* self, sh_list_node* node) {
     sh_list_node* prev = node->prev;
     sh_list_node* next = node->next;
@@ -156,6 +162,7 @@ bool _sh_list_erase(sh_list* self, sh_list_node* node) {
 
     return true;
 }
+/* erase nodes between node_begin and node_end including node_begin */
 bool _sh_list_erase_range(sh_list* self, sh_list_node* node_begin, sh_list_node* node_end) {
     sh_list_node* prev = node_begin->prev;
     sh_list_node* next = node_end;
@@ -262,7 +269,7 @@ void _sh_list_reverse(sh_list* self) {
     return;
 }
 
-//////////////////////// static begin - for sort ////////////////////////
+//////////////////////// begin - for sort ////////////////////////
 static void _sh_insertion_sort(sh_list_node** arr, int left, int right, bool (*compare)(void*, void*)) {
     sh_list_node* temp;
     
@@ -319,12 +326,16 @@ static void _sh_quick_sort(sh_list_node** arr, int left, int right, bool (*compa
     
     return;
 }
-//////////////////////// static end - for sort ////////////////////////
+//////////////////////// end - for sort ////////////////////////
 
+/* sort: use a temporary array 
+ *  - quick sort based
+ *  - if partition length is lower then 30, then use insertion sort
+ */
 void _sh_list_sort(sh_list* self, bool (*compare)(void*, void*)) {
     int len = self->size(self);
 
-    if (len < 2) return;
+    if (len < 2 || !compare) return;
 
     sh_list_node** arr = (sh_list_node**)malloc(len * sizeof(sh_list_node*));
     
@@ -360,6 +371,10 @@ void _sh_list_sort(sh_list* self, bool (*compare)(void*, void*)) {
     return;
 }
 
+/* merge 2 lists
+ * - if compare == NULL, then attach 2nd list to back of 1st list.
+ * - if compare != NULL, then merge 2 lists according to compare function(3rd argument)
+ */
 void _sh_list_merge(sh_list* this, sh_list* other, bool(*compare)(void*, void*)) {   
     if (!compare) {
         sh_list_node* head = other->head;
@@ -405,4 +420,25 @@ void _sh_list_merge(sh_list* this, sh_list* other, bool(*compare)(void*, void*))
 
     return;
 }
+
+/* remove nodes with data if condition(data) returns true */
+void _sh_list_remove_if(sh_list* self, bool (*condition)(void* pdata)) {
+    if (!condition) return;
+
+    sh_list_node* curr = self->head;
+    sh_list_node* tail = self->tail;
+    sh_list_node* next = curr->next;
+
+    while (next != tail) {
+        curr = next;
+        next = next->next;
+
+        if (condition(curr->data)) {
+            self->erase(self, curr);
+        }
+    }
+
+    return;
+}
+
 

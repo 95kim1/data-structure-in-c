@@ -23,6 +23,8 @@ void print(sh_list* list);
 void print_inverse(sh_list* list);
 bool compare_lt(void* a, void* b);
 bool compare_gt(void* a, void* b);
+bool condition_odd(void* a);
+bool condition_mul_of_3(void* a);
 
 int main(void) {
     Pos* temp_data;
@@ -296,6 +298,18 @@ int main(void) {
     printf("\nLIST_2_\n");
     print(&list2);
 
+    // 16. remove_if
+    printf("\n####### 16. REMOVE_IF #######\n");
+
+    printf("remove odds\n");
+    list1.remove_if(&list1, condition_odd);
+    print(&list1);
+
+    printf("remove multiples of 3\n");
+    list1.remove_if(&list1, condition_mul_of_3);
+    print(&list1);
+
+
     return 0;
 }
 
@@ -344,5 +358,19 @@ bool compare_gt(void* a, void* b) {
     if (pos_a->x > pos_b->x) return true;
     if (pos_a->x == pos_b->x && pos_a->y > pos_b->y) return true;
     return false;
+}
+
+bool condition_odd(void* a) {
+    Pos* pos = (Pos*)a;
+
+    if (pos->x & 1) return true; //홀수
+    return false; //짝수
+}
+
+bool condition_mul_of_3(void* a) {
+    Pos* pos = (Pos*)a;
+
+    if (pos->x % 3) return false;
+    return true;
 }
 

@@ -44,5 +44,6 @@
 #define sh_reverse(self)                    ( (self)->reverse(self) )
 #define sh_sort(self, compare)              ( (self)->sort(self, compare) )
 #define sh_merge(this, other, comapre)      ( (this)->merge(this, other, compare) )
+#define sh_remove_if(self, contition)       ( (self)->remove_if(self, condition) )
 
 #endif

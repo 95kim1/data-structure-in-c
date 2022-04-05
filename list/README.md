@@ -104,11 +104,11 @@ you must call "init_sh_list" function to use sh_list.
 - bool push_back(struct sh_list\* self, void\* pdata);
     + return insert(self, self->tail, pdata);
 
+#### delete
 - bool erase(struct sh_list\* self, sh_list_node\* node);
     + erase node(2nd argument) from the list(1st argument)
     + O(1)
 
-#### delete
 - bool erase_range(struct sh_list\* self, sh_list_node\* node_begin, sh_list_node\* node_end);
     + erase nodes between node_begin and node_end including node_begin (but node_end)
     + O(count of nodes)
@@ -142,13 +142,17 @@ you must call "init_sh_list" function to use sh_list.
     + In compare function, you must do type castings (2 arguments).
     + O(nlogn)
 
-- void _sh_list_merge(sh_list\* this, sh_list\* other, bool(\*compare)(void\* left, void\* right));
+- void merge(sh_list\* this, sh_list\* other, bool(\*compare)(void\* left, void\* right));
     + merge "other" to "this"
     + succeed, then "other" is empty
     + compare == NULL : just link "other" to the tail of "this"
         - O(1)
     + compare != NULL : merge & sort
         - O(n) (n: len(this) + len(other))
+
+- void remove_if(sh_list\* self, bool (\*condition)(void\* pdata));
+    + remove nodes with data if condition(data) returns true
+    + O(n)
 
 
 
@@ -188,4 +192,5 @@ you must call "init_sh_list" function to use sh_list.
 #define sh_reverse(self)                    ( (self)->reverse(self) )
 #define sh_sort(self, compare)              ( (self)->sort(self, compare) )
 #define sh_merge(this, other, comapre)      ( (this)->merge(this, other, compare) )
+#define sh_remove_if(self, condition)       ( (self)->remove_if(self, condition) )
 ```
