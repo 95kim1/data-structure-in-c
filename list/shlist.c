@@ -410,9 +410,9 @@ void _sh_list_merge(sh_list* this, sh_list* other, bool(*compare)(void*, void*))
             next->prev = curr;
             curr->next = next;
         }
-
-        
     }
+
+    this->len += other->len;
 
     ((sh_list_node*)other->head)->next = other->tail;
     ((sh_list_node*)other->tail)->prev = other->head;

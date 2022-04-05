@@ -298,6 +298,9 @@ int main(void) {
     printf("\nLIST_2_\n");
     print(&list2);
 
+    printf("LIST_1_ Lenth: %d\n", list1.size(&list1));
+    printf("LIST_2_ Lenth: %d\n", list2.size(&list2));
+
     // 16. remove_if
     printf("\n####### 16. REMOVE_IF #######\n");
 
