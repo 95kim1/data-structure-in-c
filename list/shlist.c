@@ -1,7 +1,7 @@
 /************************************************
 * file name    : shlist.c
 * create date  : 2022.04.01
-* update date  : 2022.04.04
+* update date  : 2022.04.05
 * writer       : 95kim1 (sunghee.k)
 * last updater : 95kim1 (sunghee.k)
 * description  : Double Linked List's source file
