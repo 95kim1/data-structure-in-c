@@ -194,3 +194,6 @@ you must call "init_sh_list" function to use sh_list.
 #define sh_merge(this, other, comapre)      ( (this)->merge(this, other, compare) )
 #define sh_remove_if(self, condition)       ( (self)->remove_if(self, condition) )
 ```
+
+## 4. Build ( gcc )
+gcc test.c shlist.c -o test
