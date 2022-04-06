@@ -1,4 +1,4 @@
-# Double Linked List
+# Stack
 
 ## 1. Description
 
