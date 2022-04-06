@@ -1,7 +1,7 @@
 /************************************************
 * file name    : test.c
 * create date  : 2022.04.01
-* update date  : 2022.04.05
+* update date  : 2022.04.06
 * writer       : 95kim1 (sunghee.k)
 * last updater : 95kim1 (sunghee.k)
 * description  : test source file of Double Linked List
@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "shlist.h"
-#include "shmacro.h"
+#include "shlistmacro.h"
 
 typedef struct _Pos {
     int x;
@@ -323,7 +323,8 @@ void print(sh_list* list) {
 
     printf("=======BEGIN=======\n");
     for (curr = sh_get_begin(list); curr != end; curr = curr->next) {
-       p = sh_get_data_ptr(curr, Pos);
+       p = (Pos*)curr->data;
+       //p = sh_get_data_ptr(curr, Pos);
        printf("[%d, %d]\n", p->x, p->y);
     }
     if (!p) printf("EMPTY!!\n");
@@ -338,7 +339,8 @@ void print_inverse(sh_list* list) {
     printf("=======BEGIN=======\n");
     printf("======INVERSE======\n");
     for (curr = sh_get_rbegin(list); curr != rend; curr = curr->prev) {
-       p = sh_get_data_ptr(curr, Pos);
+       p = (Pos*)curr->data;
+       //p = sh_get_data_ptr(curr, Pos);
        printf("[%d, %d]\n", p->x, p->y);
     }
     if (!p) printf("EMPTY!!\n");

@@ -1,7 +1,7 @@
 /************************************************
 * file name    : shlist.h
 * create date  : 2022.04.01
-* update date  : 2022.04.05
+* update date  : 2022.04.06
 * writer       : 95kim1 (sunghee.k)
 * last updater : 95kim1 (sunghee.k)
 * description  : Double Linked List's header file
@@ -15,7 +15,6 @@
 #ifndef _SH_LIST_H_
 #define _SH_LIST_H_
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 

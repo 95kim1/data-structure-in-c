@@ -1,15 +1,15 @@
 /************************************************
-* file name    : shmacro.h
+* file name    : shlistmacro.h
 * create date  : 2022.04.01
-* update date  : 2022.04.05
+* update date  : 2022.04.06
 * writer       : 95kim1 (sunghee.k)
 * last updater : 95kim1 (sunghee.k)
-* description  : macro functions
+* description  : macro functions for list
 *
 *************************************************/
 
-#ifndef _SH_MACRO_H_
-#define _SH_MACRO_H_
+#ifndef _SH_LIST_MACRO_H_
+#define _SH_LIST_MACRO_H_
 
 #define sh_create_data(type)                ( (type*)malloc(sizeof(type)) )
 
