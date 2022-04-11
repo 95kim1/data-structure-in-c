@@ -25,6 +25,7 @@ void init_sh_vector(sh_vector* vec) {
     // Capacity
     vec->size = _sh_size;
     vec->capacity = _sh_capacity;
+    vec->reserve = _sh_reserve;
     
     // Access
     vec->get = _sh_get;
@@ -38,6 +39,8 @@ void init_sh_vector(sh_vector* vec) {
     vec->erase = _sh_erase;
     vec->erase_range = _sh_erase_range;
     vec->pop_back = _sh_pop_back;
+
+    vec->resize = _sh_resize;
 
     vec->clear = _sh_clear;
     vec->free = _sh_free;
@@ -66,6 +69,9 @@ int _sh_size(struct sh_vector* self)  {
 int _sh_capacity(struct sh_vector* self)  {
     return self->_capacity;
 }
+void reserve(struct sh_vector* self, int count) {
+    
+}
 
 
   ////////////
@@ -88,7 +94,7 @@ void* _sh_back(struct sh_vector* self)  {
 //////////////
 
 bool _sh_insert(struct sh_vector* self, void* data,  int index)  {
-
+    
 }
 bool _sh_push_back(struct sh_vector* self, void* data)  {
 
@@ -108,6 +114,9 @@ void _sh_clear(struct sh_vector* self)  {
 
 }
 void _sh_free(struct sh_vector* self)  {
+
+}
+void resize(struct sh_vector* self, int size) {
 
 }
 

@@ -25,6 +25,7 @@ typedef struct sh_vector {
     // Capacity
     int size(struct sh_vector* self);
     int capacity(struct sh_vector* self);
+    void reserve(struct sh_vector* self, int count);
     
     // Access
     void* get(struct sh_vector* self,  int index);
@@ -38,6 +39,8 @@ typedef struct sh_vector {
     bool erase(struct sh_vector* self,  int index);
     bool erase_range(struct sh_vector* self,  int start,  int end);
     bool pop_back(struct sh_vector* self);
+
+    void resize(struct sh_vector* self, int size);
 
     void clear(struct sh_vector* self);
     void free(struct sh_vector* self);
@@ -58,6 +61,7 @@ void init_sh_vector_n(sh_vector* vec,  int capacity);
 // Capacity
 int _sh_size(struct sh_vector* self);
 int _sh_capacity(struct sh_vector* self);
+void _sh_reserve(struct sh_vector* self, int count);
 
 // Access
 void* _sh_get(struct sh_vector* self,  int index);
@@ -71,6 +75,8 @@ bool _sh_push_back(struct sh_vector* self, void* data);
 bool _sh_erase(struct sh_vector* self,  int index);
 bool _sh_erase_range(struct sh_vector* self,  int start,  int end);
 bool _sh_pop_back(struct sh_vector* self);
+
+void _sh_resize(struct sh_vector* self, int size);
 
 void _sh_clear(struct sh_vector* self);
 void _sh_free(struct sh_vector* self);
